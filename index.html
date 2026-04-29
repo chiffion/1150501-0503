@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宜蘭漫步：專屬浪漫輕旅行</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --bg-main: #FAFAF9;
+            --text-main: #292524;
+            --accent-teal: #0D9488;
+            --accent-light: #CCFBF1;
+        }
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        /* 時間軸樣式 */
+        .timeline-container { position: relative; padding-left: 2rem; }
+        .timeline-container::before {
+            content: ''; position: absolute; top: 0; bottom: 0; left: 0.5rem;
+            width: 2px; background-color: #e7e5e4; 
+        }
+        .timeline-item { position: relative; margin-bottom: 2.5rem; }
+        .timeline-item:last-child { margin-bottom: 0; }
+        .timeline-dot {
+            position: absolute; left: -1.85rem; top: 0.25rem;
+            width: 1rem; height: 1rem; border-radius: 50%;
+            background-color: var(--accent-teal); border: 3px solid white;
+            box-shadow: 0 0 0 2px var(--accent-light);
+        }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden">
+
+    <!-- 頂部導覽列 -->
+    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-md shadow-sm z-50 border-b border-stone-200">
+        <div class="w-full mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <button id="sidebar-toggle" class="text-stone-600 hover:text-teal-600 hover:bg-stone-100 p-2 rounded-lg transition text-xl focus:outline-none" aria-label="切換選單">
+                    ☰
+                </button>
+                <div class="font-bold text-lg md:text-xl text-teal-700 tracking-wide">
+                    🌿 宜蘭浪漫紀行
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 頁面主體框架 -->
+    <div class="pt-16 flex min-h-screen">
+        
+        <!-- 左側導覽列 -->
+        <aside id="main-sidebar" class="fixed inset-y-0 left-0 pt-16 w-[320px] bg-stone-50 border-r border-stone-200 transform -translate-x-full transition-transform duration-300 ease-in-out z-40 lg:relative lg:translate-x-0 lg:pt-0 shrink-0 overflow-y-auto shadow-2xl lg:shadow-none flex flex-col">
+            <div class="p-6 flex-grow">
+                <div class="flex justify-between items-center mb-6 lg:hidden">
+                    <h2 class="text-lg font-bold text-stone-800">選單</h2>
+                    <button id="close-sidebar-mobile" class="text-stone-400 hover:text-stone-700 text-xl px-2 py-1 focus:outline-none">✕</button>
+                </div>
+                
+                <!-- 核心連結 -->
+                <nav class="flex flex-col space-y-3 mb-6">
+                    <a href="#logistics" class="sidebar-link px-4 py-3 bg-white text-stone-700 rounded-xl shadow-sm border border-stone-100 hover:bg-teal-50 hover:text-teal-800 transition font-bold flex items-center gap-3">
+                        <span class="text-xl">🏨</span> 交通住宿
+                    </a>
+                    <a href="#itinerary" class="sidebar-link px-4 py-3 bg-white text-stone-700 rounded-xl shadow-sm border border-stone-100 hover:bg-teal-50 hover:text-teal-800 transition font-bold flex items-center gap-3">
+                        <span class="text-xl">📅</span> 每日行程
+                    </a>
+                    <a href="#food" class="sidebar-link px-4 py-3 bg-white text-stone-700 rounded-xl shadow-sm border border-stone-100 hover:bg-teal-50 hover:text-teal-800 transition font-bold flex items-center gap-3">
+                        <span class="text-xl">🍜</span> 美食地圖
+                    </a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- 右側主內容區 -->
+        <div class="flex-1 min-w-0 bg-white">
+            
+            <header class="pt-12 pb-8 px-5 lg:px-10 max-w-4xl mx-auto text-center">
+                <h1 class="text-3xl md:text-4xl font-extrabold text-stone-800 mb-3 tracking-tight">三天兩夜 ‧ 宜蘭悠閒時光</h1>
+                <p class="text-stone-500 font-medium mb-5">5/1 (五) - 5/3 (日)</p>
+                <div class="flex flex-wrap justify-center gap-2 text-sm font-medium">
+                    <span class="bg-teal-50 text-teal-700 px-3 py-1 rounded-md">👩‍❤️‍👨 專屬客製</span>
+                    <span class="bg-teal-50 text-teal-700 px-3 py-1 rounded-md">🛵 極致順遊</span>
+                    <span class="bg-teal-50 text-teal-700 px-3 py-1 rounded-md">🍻 居酒屋微醺</span>
+                </div>
+            </header>
+
+            <main class="max-w-4xl mx-auto px-5 lg:px-10 pb-20 space-y-16">
+
+                <!-- 交通住宿 -->
+                <section id="logistics" class="scroll-mt-24">
+                    <h2 class="text-2xl font-bold text-stone-800 border-b border-stone-100 pb-3 mb-6 flex items-center gap-2">
+                        <span>🏨</span> 交通與住宿
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div class="bg-stone-50 p-6 rounded-2xl border border-stone-100">
+                            <div class="flex justify-between items-center mb-3">
+                                <h3 class="text-lg font-bold text-stone-800">太子行旅</h3>
+                                <span class="bg-stone-200 text-stone-600 text-xs px-2 py-1 rounded font-bold">住宿</span>
+                            </div>
+                            <p class="text-stone-600 text-sm mb-4">地處礁溪鬧區，南來北往動線分明。</p>
+                            <div class="text-sm space-y-1.5 text-stone-500">
+                                <p>📍 <a href="https://www.google.com/maps/search/?api=1&query=262宜蘭縣礁溪鄉礁溪路五段67號" target="_blank" class="text-teal-600 hover:underline">礁溪路五段67號</a></p>
+                                <p>🕒 入住 15:00 ｜ 退房 11:00</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-stone-50 p-6 rounded-2xl border border-stone-100">
+                            <div class="flex justify-between items-center mb-3">
+                                <h3 class="text-lg font-bold text-stone-800">客運 & 機車</h3>
+                                <span class="bg-stone-200 text-stone-600 text-xs px-2 py-1 rounded font-bold">交通</span>
+                            </div>
+                            <div class="text-sm space-y-3 text-stone-600">
+                                <p>🚌 <strong>抵達：</strong>搭乘客運直達「礁溪轉運站」。</p>
+                                <p>🛵 <strong>租賃：</strong>轉運站周邊即可租機車，機動性高。</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 每日行程 -->
+                <section id="itinerary" class="scroll-mt-24">
+                    <h2 class="text-2xl font-bold text-stone-800 border-b border-stone-100 pb-3 mb-6 flex items-center gap-2">
+                        <span>📅</span> 每日行程
+                    </h2>
+
+                    <div class="flex space-x-2 border-b border-stone-200 mb-6 overflow-x-auto no-scrollbar pb-1">
+                        <button class="tab-btn active px-4 py-2 text-sm font-bold text-teal-700 border-b-2 border-teal-600 whitespace-nowrap" data-target="day1">
+                            5/1 (五) 頭城夜風
+                        </button>
+                        <button class="tab-btn px-4 py-2 text-sm font-medium text-stone-500 hover:text-teal-600 border-b-2 border-transparent whitespace-nowrap transition" data-target="day2">
+                            5/2 (六) 礁溪慢活
+                        </button>
+                        <button class="tab-btn px-4 py-2 text-sm font-medium text-stone-500 hover:text-teal-600 border-b-2 border-transparent whitespace-nowrap transition" data-target="day3">
+                            5/3 (日) 南下順遊
+                        </button>
+                    </div>
+
+                    <div class="bg-stone-50 p-6 rounded-2xl border border-stone-100">
+                        
+                        <!-- Day 1 -->
+                        <div id="day1" class="tab-content block">
+                            <div class="timeline-container">
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="text-sm font-bold text-teal-600 mb-0.5">11:00</div>
+                                    <h3 class="text-base font-bold text-stone-800">抵達礁溪 / 寄放行李</h3>
+                                    <p class="text-xs text-stone-500 mt-1 mb-1">📍 <a href="https://www.google.com/maps/search/?api=1&query=太子行旅+宜蘭" target="_blank" class="text-blue-500 hover:underline">太子行旅</a></p>
+                                    <p class="text-sm text-stone-600">辦理租車並寄放行李，輕裝出發。</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="text-sm font-bold text-teal-600 mb-0.5">12:00 (停留 2 小時)</div>
+                                    <h3 class="text-base font-bold text-stone-800">市區午餐 & 溫泉魚體驗</h3>
+                                    <p class="text-xs text-stone-500 mt-1 mb-1">推薦：<a href="https://www.google.com/maps/search/?api=1&query=柯氏蔥油餅" target="_blank" class="text-blue-500 hover:underline">柯氏蔥油餅</a> 或 <a href="https://www.google.com/maps/search/?api=1&query=樂山溫泉拉麵" target="_blank" class="text-blue-500 hover:underline">樂山溫泉拉麵</a></p>
+                                    <p class="text-sm text-stone-600">享用在地小吃，體驗溫泉魚咬腳。</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="text-sm font-bold text-teal-600 mb-0.5">15:00 (車程約 20 分)</div>
+                                    <h3 class="text-base font-bold text-stone-800">飯店入住 ➔ 前往頭城</h3>
+                                    <p class="text-xs text-stone-500 mt-1 mb-1">中途可停：<a href="https://www.google.com/maps/search/?api=1&query=阿宗芋冰城" target="_blank" class="text-blue-500 hover:underline">阿宗芋冰城</a></p>
+                                    <p class="text-sm text-stone-600">稍作休息，沿台9線北上享受微風。</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="text-sm font-bold text-teal-600 mb-0.5">16:00 (停留 1.5 小時)</div>
+                                    <h3 class="text-base font-bold text-stone-800">頭城老街漫步</h3>
+                                    <p class="text-xs text-stone-500 mt-1 mb-1">📍 <a href="https://www.google.com/maps/search/?api=1&query=頭城老街" target="_blank" class="text-blue-500 hover:underline">頭城老街</a></p>
+                                    <p class="text-sm text-stone-600">漫步紅磚拱廊，感受懷舊氛圍。</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="text-sm font-bold text-teal-600 mb-0.5">17:30</div>
+                                    <h3 class="text-base font-bold text-stone-800">頭城夜市尋寶</h3>
+                                    <p class="text-xs text-stone-500 mt-1 mb-1">📍 <a href="https://www.google.com/maps/search/?api=1&query=頭城夜市" target="_blank" class="text-blue-500 hover:underline">頭城夜市 (週五限定)</a></p>
+                                    <p class="text-sm text-stone-600">體驗週五限定夜市，品嚐古早味小吃。</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Day 2 -->
+                        <div id="day2" class="tab-content hidden">
+                            <div class="timeline-container">
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="text-sm font-bold text-teal-600 mb-0.5">10:30 (停留 2 小時)</div>
+                                    <h3 class="text-base font-bold text-stone-800">五峰旗瀑布晨間漫步</h3>
+                                    <p class="text-xs text-stone-500 mt-1 mb-1">📍 <a href="https://www.google.com/maps/search/?api=1&query=五峰旗瀑布" target="_blank" class="text-blue-500 hover:underline">五峰旗風景區</a></p>
+                                    <p class="text-sm text-stone-600">步道平緩，輕鬆吸收負離子。</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="text-sm font-bold text-teal-600 mb-0.5">13:00 (停留 1.5 小時)</div>
+                                    <h3 class="text-base font-bold text-stone-800">礁溪在地美食</h3>
+                                    <p class="text-xs text-stone-500 mt-1 mb-1">推薦：<a href="https://www.google.com/maps/search/?api=1&query=礁溪八寶冬粉" target="_blank" class="text-blue-500 hover:underline">八寶冬粉</a> 或 <a href="https://www.google.com/maps/search/?api=1&query=正常鮮肉小湯包+礁溪店" target="_blank" class="text-blue-500 hover:underline">正常鮮肉小湯包(礁溪店)</a></p>
+                                    <p class="text-sm text-stone-600">下山後直達礁溪市區，享用在地名店。</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="text-sm font-bold text-teal-600 mb-0.5">15:30 (停留 3 小時)</div>
+                                    <h3 class="text-base font-bold text-stone-800">空ㄟ農場：無敵景觀與夕陽</h3>
+                                    <p class="text-xs text-stone-500 mt-1 mb-1">📍 <a href="https://www.google.com/maps/search/?api=1&query=空ㄟ農場" target="_blank" class="text-blue-500 hover:underline">空ㄟ農場</a> (需搭接駁車)</p>
+                                    <p class="text-sm text-stone-600">享用窯烤披薩，飽覽蘭陽平原夕陽與夜景。</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="text-sm font-bold text-teal-600 mb-0.5">19:30</div>
+                                    <h3 class="text-base font-bold text-stone-800">微醺：林北烤好居酒屋</h3>
+                                    <p class="text-xs text-stone-500 mt-1 mb-1">📍 <a href="https://www.google.com/maps/search/?api=1&query=林北烤好串燒居酒屋+礁溪店" target="_blank" class="text-blue-500 hover:underline">林北烤好 (礁溪店)</a></p>
+                                    <p class="text-sm text-stone-600">步行可達，安心暢飲吃串燒，享受微醺夜。</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Day 3 -->
+                        <div id="day3" class="tab-content hidden">
+                            <div class="timeline-container">
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="text-sm font-bold text-teal-600 mb-0.5">10:00 (停留 2 小時)</div>
+                                    <h3 class="text-base font-bold text-stone-800">斑比山丘療癒互動</h3>
+                                    <p class="text-xs text-stone-500 mt-1 mb-1">📍 <a href="https://www.google.com/maps/search/?api=1&query=斑比山丘" target="_blank" class="text-blue-500 hover:underline">冬山鄉斑比山丘</a> (需提前預約)</p>
+                                    <p class="text-sm text-stone-600">設計感園區，與小鹿斑比近距離互動餵食。</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="text-sm font-bold text-teal-600 mb-0.5">12:30 (停留 1.5 小時)</div>
+                                    <h3 class="text-base font-bold text-stone-800">冬山午餐：刀山臭豆腐</h3>
+                                    <p class="text-xs text-stone-500 mt-1 mb-1">推薦：<a href="https://www.google.com/maps/search/?api=1&query=冬山+刀山臭豆腐" target="_blank" class="text-blue-500 hover:underline">刀山臭豆腐</a></p>
+                                    <p class="text-sm text-stone-600">就近享用超人氣特色「三層臭豆腐」與在地小吃。</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="text-sm font-bold text-teal-600 mb-0.5">14:30 (整個下午)</div>
+                                    <h3 class="text-base font-bold text-stone-800">專屬秘境：八方漁養殖場</h3>
+                                    <p class="text-xs text-stone-500 mt-1 mb-1">📍 <a href="https://www.google.com/maps/search/?api=1&query=八方漁養殖場+宜蘭" target="_blank" class="text-blue-500 hover:underline">壯圍鄉八方漁養殖場</a></p>
+                                    <p class="text-sm text-stone-600">順遊海線秘境，體驗養殖生態，享受悠閒午後。</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="text-sm font-bold text-teal-600 mb-0.5">18:00 (停留 2 小時)</div>
+                                    <h3 class="text-base font-bold text-stone-800">礁溪觀光夜市</h3>
+                                    <p class="text-xs text-stone-500 mt-1 mb-1">📍 <a href="https://www.google.com/maps/search/?api=1&query=礁溪觀光夜市" target="_blank" class="text-blue-500 hover:underline">礁溪觀光夜市</a></p>
+                                    <p class="text-sm text-stone-600">週日限定夜市吃飽喝足，回飯店休息準備明日返程。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 美食地圖 -->
+                <section id="food" class="scroll-mt-24">
+                    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-stone-100 pb-3 mb-6">
+                        <h2 class="text-2xl font-bold text-stone-800 flex items-center gap-2 m-0">
+                            <span>🍜</span> 嚴選美食
+                        </h2>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="filter-btn active bg-stone-800 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition" data-filter="all">全部</button>
+                            <button class="filter-btn bg-stone-100 text-stone-600 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-stone-200 transition" data-filter="jiaoxi_yilan">礁溪/宜蘭</button>
+                            <button class="filter-btn bg-stone-100 text-stone-600 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-stone-200 transition" data-filter="luodong_dongshan">羅東/冬山</button>
+                            <button class="filter-btn bg-stone-100 text-stone-600 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-stone-200 transition" data-filter="toucheng">頭城</button>
+                        </div>
+                    </div>
+
+                    <div id="food-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <!-- 由 JS 動態生成 -->
+                    </div>
+                </section>
+
+            </main>
+
+            <footer class="bg-stone-50 border-t border-stone-200 py-6 text-center text-sm">
+                <p class="text-stone-500">宜蘭漫遊企劃 ‧ 願旅途愉快 💕</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 側邊欄控制
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            const sidebar = document.getElementById('main-sidebar');
+            const closeSidebarMobile = document.getElementById('close-sidebar-mobile');
+            const sidebarLinks = document.querySelectorAll('.sidebar-link');
+
+            function toggleSidebar() {
+                if(sidebar) sidebar.classList.toggle('-translate-x-full');
+            }
+
+            if (sidebarToggle) sidebarToggle.addEventListener('click', toggleSidebar);
+            if (closeSidebarMobile) closeSidebarMobile.addEventListener('click', () => sidebar.classList.add('-translate-x-full'));
+            
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth < 1024 && sidebar) {
+                        sidebar.classList.add('-translate-x-full');
+                    }
+                });
+            });
+
+            // Tab 切換
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    tabBtns.forEach(b => {
+                        b.classList.remove('active', 'text-teal-700', 'border-teal-600', 'font-bold');
+                        b.classList.add('text-stone-500', 'border-transparent', 'font-medium');
+                    });
+                    tabContents.forEach(c => {
+                        c.classList.remove('block');
+                        c.classList.add('hidden');
+                    });
+
+                    btn.classList.add('active', 'text-teal-700', 'border-teal-600', 'font-bold');
+                    btn.classList.remove('text-stone-500', 'border-transparent', 'font-medium');
+                    
+                    const targetId = btn.getAttribute('data-target');
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        targetElement.classList.remove('hidden');
+                        targetElement.classList.add('block');
+                    }
+                });
+            });
+
+            // 美食地圖資料與渲染
+            const foodData = [
+                { name: '林北烤好居酒屋', location: 'jiaoxi_yilan', locLabel: '礁溪', icon: '🍻', desc: '串燒名店，情侶微醺首選。', hours: '17:30–00:00 (週二休)', query: '林北烤好串燒居酒屋 礁溪店' },
+                { name: '礁溪八寶冬粉', location: 'jiaoxi_yilan', locLabel: '礁溪', icon: '🍜', desc: '超人氣老店，湯頭清甜配料豐富。', hours: '06:00–21:00', query: '礁溪八寶冬粉' },
+                { name: '柯氏蔥油餅', location: 'jiaoxi_yilan', locLabel: '礁溪', icon: '🥞', desc: '礁溪必吃排隊美食。', hours: '09:00–18:00', query: '柯氏蔥油餅' },
+                { name: '礁溪觀光夜市', location: 'jiaoxi_yilan', locLabel: '礁溪', icon: '🎪', desc: '週末限定，轉運站旁熱鬧夜市。', hours: '五至日 18:00–23:00', query: '礁溪觀光夜市' },
+                { name: '正常鮮肉小湯包', location: 'jiaoxi_yilan', locLabel: '礁溪', icon: '🥟', desc: '在地人氣小籠包。', hours: '07:00–13:00, 16:00–19:00 (週二休)', query: '正常鮮肉小湯包 礁溪店' },
+                { name: '正好鮮肉小籠包', location: 'jiaoxi_yilan', locLabel: '宜蘭市', icon: '🥟', desc: '宜蘭市總店，皮薄汁多。', hours: '08:00–12:30, 15:00–18:00 (週一休)', query: '正好鮮肉小籠包 宜蘭總店' },
+                { name: '北門綠豆沙牛乳', location: 'jiaoxi_yilan', locLabel: '宜蘭市', icon: '🧋', desc: '濃郁綿密的在地老字號。', hours: '10:00–17:00 (日至二休)', query: '北門綠豆沙牛乳大王' },
+                { name: '蒜味肉羹', location: 'jiaoxi_yilan', locLabel: '宜蘭市', icon: '🍲', desc: '蒜香撲鼻經典肉羹湯。', hours: '09:00–18:00 (日一休)', query: '阿娘給的蒜味肉羹' },
+                { name: '宜大雞肉串', location: 'jiaoxi_yilan', locLabel: '宜蘭市', icon: '🍢', desc: '宜大旁高CP值銅板美食。', hours: '13:30–22:30', query: '宜大雞肉串' },
+                { name: '古早味紅糖餅', location: 'jiaoxi_yilan', locLabel: '宜蘭市', icon: '🥞', desc: '爆漿紅糖散步甜點。', hours: '13:30–17:30 (週二休)', query: '宜蘭 紅糖餅' },
+                
+                { name: '羅東夜市', location: 'luodong_dongshan', locLabel: '羅東', icon: '🎪', desc: '宜蘭最大夜市。', hours: '每日 15:00–00:00', query: '羅東夜市' },
+                { name: '阿灶伯羊肉湯', location: 'luodong_dongshan', locLabel: '羅東', icon: '🍲', desc: '排隊名店，羊肉鮮嫩。', hours: '16:00–01:00 (週三休)', query: '阿灶伯當歸羊肉湯' },
+                { name: '魏姐包心粉圓', location: 'luodong_dongshan', locLabel: '羅東', icon: '🍨', desc: '粉圓與雪沙冰雙重口感。', hours: '12:00–22:30', query: '魏姐包心粉圓 羅東' },
+                { name: '刀山臭豆腐', location: 'luodong_dongshan', locLabel: '冬山', icon: '🧆', desc: '外酥內嫩的浮誇三層臭豆腐。', hours: '11:15–18:00 (週三休)', query: '刀山臭豆腐 冬山' },
+                { name: '冬山金珠蔥油餅', location: 'luodong_dongshan', locLabel: '冬山', icon: '🥞', desc: '麵皮Ｑ彈，特製醬料美味。', hours: '14:00–18:00 (週三休)', query: '冬山金珠蔥油餅' },
+                { name: '飛魚食染', location: 'luodong_dongshan', locLabel: '冬山', icon: '🍮', desc: '傳統市場內質感鹽滷豆花。', hours: '11:30–20:00 (週一休)', query: '飛魚食染-鹽滷豆花專賣店' },
+
+                { name: '頭城夜市', location: 'toucheng', locLabel: '頭城', icon: '🎪', desc: '週五限定流動夜市。', hours: '僅週五 17:30–22:30', query: '頭城夜市' },
+                { name: '阿宗芋冰城', location: 'toucheng', locLabel: '頭城', icon: '🍦', desc: '傳統叭噗冰淇淋。', hours: '09:00–21:00', query: '阿宗芋冰城' },
+                { name: '頂埔阿嬤蔥油餅', location: 'toucheng', locLabel: '頭城', icon: '🥞', desc: '老字號，炸得金黃酥脆。', hours: '09:00–18:00', query: '頂埔阿嬤蔥油餅' },
+                { name: '滿山望海', location: 'toucheng', locLabel: '頭城', icon: '🍰', desc: '無敵海景網美咖啡廳 (需訂位)。', hours: '10:00–18:00 (週三休)', query: '滿山望海 頭城' }
+            ];
+
+            const foodGrid = document.getElementById('food-grid');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+
+            function renderFoodCards(filter = 'all') {
+                if (!foodGrid) return;
+                foodGrid.innerHTML = '';
+                
+                const filteredData = filter === 'all' ? foodData : foodData.filter(item => item.location === filter);
+
+                filteredData.forEach(item => {
+                    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.query)}`;
+                    const cardHTML = `
+                        <a href="${mapsUrl}" target="_blank" class="block bg-stone-50 p-4 rounded-xl border border-stone-100 hover:bg-teal-50 hover:border-teal-100 transition group h-full flex flex-col relative overflow-hidden">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="text-2xl">${item.icon}</div>
+                                <div>
+                                    <span class="text-[10px] font-bold text-teal-600 bg-teal-100/50 px-2 py-0.5 rounded">${item.locLabel}</span>
+                                    <h3 class="text-base font-bold text-stone-800 group-hover:text-teal-800 mt-0.5">${item.name}</h3>
+                                </div>
+                            </div>
+                            <p class="text-stone-500 text-xs mt-1 leading-relaxed flex-grow">${item.desc}</p>
+                            
+                            <div class="mt-3 pt-2 border-t border-stone-200/70 text-[11px] text-stone-500 font-medium flex items-center gap-1.5 group-hover:text-teal-700 transition">
+                                <span>🕒</span> 
+                                <span>${item.hours}</span>
+                            </div>
+                        </a>
+                    `;
+                    foodGrid.insertAdjacentHTML('beforeend', cardHTML);
+                });
+            }
+
+            renderFoodCards();
+
+            if (filterBtns.length > 0) {
+                filterBtns.forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        filterBtns.forEach(b => {
+                            b.classList.remove('bg-stone-800', 'text-white');
+                            b.classList.add('bg-stone-100', 'text-stone-600');
+                        });
+                        e.target.classList.remove('bg-stone-100', 'text-stone-600');
+                        e.target.classList.add('bg-stone-800', 'text-white');
+
+                        renderFoodCards(e.target.getAttribute('data-filter'));
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
